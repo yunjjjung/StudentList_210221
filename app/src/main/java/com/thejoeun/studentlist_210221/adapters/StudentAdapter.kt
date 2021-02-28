@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.CalendarView
 import android.widget.TextView
 import com.thejoeun.studentlist_210221.R
 import com.thejoeun.studentlist_210221.datas.Student
+import java.util.*
+import kotlin.collections.ArrayList
 
 class StudentAdapter(
     val mContext : Context,     //어떤 화면 , 액티비티가 어딘지
@@ -41,7 +44,15 @@ class StudentAdapter(
 //        Student의 값을 => 텍스트뷰들에 반영
 
         nameTxt.text = student.name
-        ageTxt.text = "(${student.birthYear}세)"
+
+//        현재 나이를 구해서 반영 => 현재년도 - 출생년도 + 1
+//        자바의 Calendar 객체 생성 => 기본값 : 현재 일시
+//        cal 에서 년도값을 추출 => 현재 년도.
+        val cal = Calendar.getInstance()
+
+        val age = cal.get(Calendar.YEAR) - student.birthYear + 1
+
+        ageTxt.text = "(${age}세)"
 
 
         return row
