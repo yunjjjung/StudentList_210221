@@ -1,8 +1,11 @@
 package com.thejoeun.studentlist_210221
 
+import android.app.Dialog
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.thejoeun.studentlist_210221.adapters.StudentAdapter
 import com.thejoeun.studentlist_210221.datas.Student
 import kotlinx.android.synthetic.main.activity_main.*
@@ -50,20 +53,26 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+//            true : 롱 클릭 전용, false : 전용 X , 일반클릭도 처리
         studentListView.setOnItemLongClickListener { parent, view, position, id ->
 
             /*val std = mStudentList[position]
             Toast.makeText(this, "${std.name} 길게 눌림", Toast.LENGTH_SHORT).show()*/
 
-//            true : 롱 클릭 전용, false : 전용 X , 일반클릭도 처리
+//            진짜 삭제를 진행하기 전에, 정말 지울건지 물어보고 진행
 
-//            목록에서 해당 위치의 학생 제거
-            mStudentList.removeAt(position)
+            val alert = AlertDialog.Builder(this)
+            alert.setTitle("삭제 확인")
+            alert.setMessage("정말 해당 학생을 삭제하시겠습니까?")
+            alert.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
 
-//            리스트 뷰의 어댑터에게 알림 전달 => 새로고침 적용
-            mAdapter.notifyDataSetChanged()
+                mStudentList.removeAt(position)
 
-            return@setOnItemLongClickListener false
+                mAdapter.notifyDataSetChanged()
+            })
+
+            alert.setNegativeButton("취소", null)
+            alert.show()
 
             return@setOnItemLongClickListener false
 
