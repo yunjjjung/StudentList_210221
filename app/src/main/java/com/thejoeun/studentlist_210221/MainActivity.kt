@@ -52,10 +52,19 @@ class MainActivity : AppCompatActivity() {
 
         studentListView.setOnItemLongClickListener { parent, view, position, id ->
 
-            val std = mStudentList[position]
-            Toast.makeText(this, "${std.name} 길게 눌림", Toast.LENGTH_SHORT).show()
+            /*val std = mStudentList[position]
+            Toast.makeText(this, "${std.name} 길게 눌림", Toast.LENGTH_SHORT).show()*/
 
 //            true : 롱 클릭 전용, false : 전용 X , 일반클릭도 처리
+
+//            목록에서 해당 위치의 학생 제거
+            mStudentList.removeAt(position)
+
+//            리스트 뷰의 어댑터에게 알림 전달 => 새로고침 적용
+            mAdapter.notifyDataSetChanged()
+
+            return@setOnItemLongClickListener false
+
             return@setOnItemLongClickListener false
 
         }
