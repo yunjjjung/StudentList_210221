@@ -21,11 +21,12 @@ class StudentAdapter(
     val inf = LayoutInflater.from(mContext)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {  //position이라는 변수를 Int로 데려옴
+                                                                                    // View? 아직 정확치 않다. 현재 null
 
         var tempRow = convertView   //임시로 한칸을 그려넣겠다
 
         if(tempRow == null) {
-            tempRow = inf.inflate(R.layout.student_list_item, null)
+            tempRow = inf.inflate(R.layout.student_list_item, null) // inflate가 한번 실행될 때 마다 View가 하나 배치됨
         }
 
         val row = tempRow!! //절대로 안 비어있어
